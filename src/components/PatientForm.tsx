@@ -1,13 +1,16 @@
 import {useForm} from 'react-hook-form'
 import Error from './Error'
+import type { DraftPatient } from '../types'
+import { usePatientStore } from '../store'
 
 export default function PatientForm() {
 
-    const {register,handleSubmit,formState:{errors}}=useForm()
+    const {addPatient}=usePatientStore()
 
-    const registerPatient=()=>{
+    const {register,handleSubmit,formState:{errors}}=useForm<DraftPatient>()
 
-
+    const registerPatient=(data:DraftPatient)=>{
+        addPatient(data)
     }
   
     return (
@@ -39,7 +42,7 @@ export default function PatientForm() {
                     />
                     {errors.name &&(
                     <Error>
-                        {errors.name?.message?.toString()}
+                        {errors.name?.message}
                     </Error>
                     )}
                 </div>
@@ -59,7 +62,7 @@ export default function PatientForm() {
                   />
                     {errors.caretaker &&(
                     <Error>
-                        {errors.caretaker?.message?.toString()}
+                        {errors.caretaker?.message}
                     </Error>
                     )}
 
@@ -84,7 +87,7 @@ export default function PatientForm() {
                 />
                   {errors.email &&(
                     <Error>
-                        {errors.email?.message?.toString()}
+                        {errors.email?.message}
                     </Error>
                     )}
 
@@ -104,7 +107,7 @@ export default function PatientForm() {
                   />
                   {errors.date &&(
                     <Error>
-                        {errors.date?.message?.toString()}
+                        {errors.date?.message}
                     </Error>
                     )}
 
@@ -126,7 +129,7 @@ export default function PatientForm() {
     
                   {errors.symptoms &&(
                     <Error>
-                        {errors.symptoms?.message?.toString()}
+                        {errors.symptoms?.message}
                     </Error>
                     )}
               </div>
