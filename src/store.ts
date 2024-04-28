@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-import {devtools} from 'zustand/middleware'
+import {createJSONStorage, devtools,persist} from 'zustand/middleware'
 import {v4 as uuidv4} from 'uuid'
 import { DraftPatient, Patient } from './types'
 
@@ -16,7 +16,8 @@ const createPatient=(patient:DraftPatient):Patient=>{
 }
 
 
-export const usePatientStore=create<PatientState>()(devtools((set)=>({
+export const usePatientStore=create<PatientState>()(devtools(
+   persist( (set)=>({
     patients:[],
     activeId:'',
     addPatient:(data)=>{
@@ -46,5 +47,9 @@ export const usePatientStore=create<PatientState>()(devtools((set)=>({
 
     }
 
-})
+}),
+    {
+        name:'patient-storage',
+
+    })
 ))
